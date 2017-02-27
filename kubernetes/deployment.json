@@ -34,10 +34,6 @@
                 ],
                 "env": [
                     {
-                        "name": "ETCD_HOST",
-                        "value": "localhost"
-                    },
-                    {
                         "name": "RACK_ENV",
                         "value": "production"
                     }
