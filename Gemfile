@@ -1,7 +1,7 @@
-#ruby=2.4.0
-#ruby-gemset=who-am-i-240
+#ruby=2.3.3
+#ruby-gemset=who-am-i-233
 
-ruby '2.4.0'
+ruby '2.3.3'
 
 source "https://rubygems.org"
 
