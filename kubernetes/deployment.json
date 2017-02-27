@@ -36,6 +36,14 @@
                     {
                         "name": "RACK_ENV",
                         "value": "production"
+                    },
+                    {
+                        "name": "ETCD_HOST",
+                        "value": "localhost"
+                    },
+                    {
+                        "name": "ETCD_PORT",
+                        "value": "2379"
                     }
                 ],
                 "resources": {

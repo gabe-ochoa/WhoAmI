@@ -26,17 +26,17 @@ def hostname(mac_address, service)
 end
 
 def etcd_set(mac_address, value)
-  response = HTTParty.put("#{etcd_uri}/#{mac_address}", :query => {value: value})
+  response = HTTParty.put("#{etcd_uri}/#{mac_address}", :query => {value: value}).body
   parse_etcd_response(response)
 end
 
 def etcd_get(mac_address)
-  response = HTTParty.get("#{etcd_uri}/#{mac_address}")
+  response = HTTParty.get("#{etcd_uri}/#{mac_address}").body
   parse_etcd_response(response)
 end
 
 def etcd_get_keyspace
-  response = HTTParty.get(etcd_uri)
+  response = HTTParty.get(etcd_uri).body
 end
 
 def parse_etcd_response(response)
