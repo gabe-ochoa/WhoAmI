@@ -22,5 +22,6 @@ The host name endpoint takes 2 parameters - a MAC address (required) and a servi
 ```
 /hostname?mac=01:02:03:04:05:06&service=wink-tv
 ```
+```
 'wink-tv-1'
 ```
