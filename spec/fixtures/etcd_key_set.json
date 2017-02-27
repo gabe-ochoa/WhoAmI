@@ -1,0 +1,9 @@
+{
+  "action": "set",
+  "node": {
+    "key": "/12:20:30:40:50:60",
+    "value": "k8s-rpi-worker-3",
+    "modifiedIndex": 6,
+    "createdIndex": 6
+  }
+}
