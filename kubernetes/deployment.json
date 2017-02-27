@@ -1,0 +1,60 @@
+{
+    "kind": "Pod",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "who-am-i",
+        "labels": {
+            "name": "who-am-i"
+        }
+    },
+    "spec": {
+        "hostNetwork": "true",
+        "containers": [
+            {
+                "name": "who-am-i",
+                "image": "gabe-ochoa/who-am-i:stable",
+                "livenessProbe": {
+                  "httpGet": {
+                    "path": "/health",
+                    "port": 3000
+                  }
+                },
+                "ports": [
+                    {
+                        "containerPort": 3000,
+                        "protocol": "TCP"
+                    }
+                ],
+                "args": [
+                  "bundle",
+                  "exec",
+                  "rackup",
+                  "-p",
+                  "3000"
+                ],
+                "env": [
+                    {
+                        "name": "ETCD_HOST",
+                        "value": "localhost"
+                    },
+                    {
+                        "name": "RACK_ENV",
+                        "value": "production"
+                    }
+                ],
+                "resources": {
+                  "requests":{
+                    "memory": "50Mi",
+                    "cpu": "25m"
+                  },
+                  "limits": {
+                    "memory": "100Mi",
+                    "cpu": "50m"
+                  }
+                },
+                "imagePullPolicy": "Always"
+            }
+        ],
+        "restartPolicy": "Always"
+    }
+}
