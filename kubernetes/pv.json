@@ -1,0 +1,19 @@
+{
+  "kind": "PersistentVolume",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "etcd-pv-volume",
+    "labels": {
+      "type": "local"
+    }
+  },
+  "spec": {
+    "capacity": {
+      "storage": "0.1Gi"
+    },
+    "accessModes": ["ReadWriteOnce"],
+    "hostPath": {
+      "path": "/tmp/data"
+    }
+  }
+}

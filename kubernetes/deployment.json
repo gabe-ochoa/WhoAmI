@@ -8,12 +8,12 @@
         }
     },
     "spec": {
-        "hostNetwork": "true",
         "containers": [
             {
                 "name": "who-am-i",
-                "image": "gabe-ochoa/who-am-i:stable",
+                "image": "gabeochoa/who-am-i:stable",
                 "livenessProbe": {
+                  "initialDelaySeconds": 20,
                   "httpGet": {
                     "path": "/health",
                     "port": 3000
@@ -49,7 +49,66 @@
                   }
                 },
                 "imagePullPolicy": "Always"
+            },
+            {
+              "command": [
+                "/usr/local/bin/etcd"
+              ],
+              "env": [
+                  {
+                      "name": "ETCD_NAME",
+                      "value": "etcd"
+                  },
+                  {
+                      "name": "ETCD_DATA_DIR",
+                      "value": "/etc/etcd/data"
+                  },
+                  {
+                      "name": "ETCD_LISTEN_PEER_URLS",
+                      "value": " http://0.0.0.0:2380"
+                  },
+                  {
+                      "name": "ETCD_LISTEN_CLIENT_URLS",
+                      "value": "http://0.0.0.0:2379"
+                  },
+                  {
+                      "name": "ETCD_ADVERTISE_CLIENT_URLS",
+                      "value": "http://0.0.0.0:2379"
+                  },
+                  {
+                      "name": "ETCD_INITIAL_ADVERTISE_PEER_URLS",
+                      "value": "http://0.0.0.0:2380"
+                  }
+              ],
+              "image": "quay.io/coreos/etcd:latest",
+              "name": "etcd",
+              "ports": [
+                {
+                  "containerPort": 2379,
+                  "name": "client",
+                  "protocol": "TCP"
+                },
+                {
+                  "containerPort": 2380,
+                  "name": "server",
+                  "protocol": "TCP"
+                }
+              ],
+              "volumeMounts": [
+                {
+                "name": "etcd-data",
+                "mountPath": "/etc/etcd/data"
+              }
+            ]
+          }
+        ],
+        "volumes": [
+          {
+            "name": "etcd-data",
+            "persistentVolumeClaim": {
+              "claimName": "etcd-pv-claim"
             }
+          }
         ],
         "restartPolicy": "Always"
     }

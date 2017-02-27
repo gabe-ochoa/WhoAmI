@@ -62,11 +62,15 @@ def next_index
 end
 
 def etcd_uri
-  "http://#{etcd_hostname}:2739/v2/keys/WhoAmI/#{@service}"
+  "http://#{etcd_hostname}:#{etcd_port}/v2/keys/WhoAmI/#{@service}"
 end
 
 def etcd_hostname
   ENV['ETCD_HOST'] || '127.0.0.1'
+end
+
+def etcd_port
+  ENV['ETCD_PORT'] || '2379'
 end
 
 def etcd_client
