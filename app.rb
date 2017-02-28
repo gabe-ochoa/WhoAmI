@@ -24,7 +24,7 @@ module WhoAmI
     end
 
     def hostname(mac_address, service)
-      @service = service
+      @service = "#{WhoAmI}-#{service}"
       hostname = etcd_get(mac_address)
       if hostname.empty?
         logger.info "Hostname was empty"
@@ -36,7 +36,7 @@ module WhoAmI
 
     def etcd_set(mac_address, value)
       logger.info "Setting etcd key for #{mac_address} to #{value}"
-      response = HTTParty.post("#{etcd_uri}/#{mac_address}", :query => {value: value}).body
+      response = HTTParty.put("#{etcd_uri}/#{mac_address}", :query => {value: value}).body
       logger.info response
       parse_etcd_response(response)
     end
@@ -84,7 +84,7 @@ module WhoAmI
     end
 
     def etcd_uri
-      "http://#{etcd_hostname}:#{etcd_port}/v2/keys/WhoAmI/#{@service}"
+      "http://#{etcd_hostname}:#{etcd_port}/v2/keys/#{@service}"
     end
 
     def etcd_hostname

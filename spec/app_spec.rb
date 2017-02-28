@@ -16,7 +16,7 @@ RSpec.describe WhoAmI, type: :controllers do
   end
 
   it 'GET /hostname?mac=10:20:30:40:50:60 returns a 200 and a hostname' do
-    stub_request(:get, "http://127.0.0.1:2379/v2/keys/WhoAmI/kubernetes/10:20:30:40:50:60").
+    stub_request(:get, "http://127.0.0.1:2379/v2/keys/WhoAmI-kubernetes/10:20:30:40:50:60").
       to_return(:status => 200, :body => load_fixture('etcd_get.json'))
 
     get('hostname?mac=10:20:30:40:50:60')
@@ -25,13 +25,13 @@ RSpec.describe WhoAmI, type: :controllers do
   end
 
   it 'GET /hostname?mac=12:20:30:40:50:60 and return a hostname with the next index' do
-    stub_request(:get, "http://127.0.0.1:2379/v2/keys/WhoAmI/kubernetes/12:20:30:40:50:60").
+    stub_request(:get, "http://127.0.0.1:2379/v2/keys/WhoAmI-kubernetes/12:20:30:40:50:60").
       to_return(:status => 200, :body => load_fixture('etcd_key_not_found.json'))
 
-    stub_request(:get, "http://127.0.0.1:2379/v2/keys/WhoAmI/kubernetes").
+    stub_request(:get, "http://127.0.0.1:2379/v2/keys/WhoAmI-kubernetes").
       to_return(:status => 200, :body => load_fixture('etcd_get_keys.json'))
 
-    stub_request(:post, "http://127.0.0.1:2379/v2/keys/WhoAmI/kubernetes/12:20:30:40:50:60?value=k8s-rpi-worker-3").
+    stub_request(:put, "http://127.0.0.1:2379/v2/keys/WhoAmI-kubernetes/12:20:30:40:50:60?value=k8s-rpi-worker-3").
       to_return(:status => 200, :body => load_fixture('etcd_key_set.json'))
 
     get('hostname?mac=12:20:30:40:50:60')
