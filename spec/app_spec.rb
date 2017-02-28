@@ -31,7 +31,7 @@ RSpec.describe WhoAmI, type: :controllers do
     stub_request(:get, "http://127.0.0.1:2379/v2/keys/WhoAmI/kubernetes").
       to_return(:status => 200, :body => load_fixture('etcd_get_keys.json'))
 
-    stub_request(:put, "http://127.0.0.1:2379/v2/keys/WhoAmI/kubernetes/12:20:30:40:50:60?value=k8s-rpi-worker-3").
+    stub_request(:post, "http://127.0.0.1:2379/v2/keys/WhoAmI/kubernetes/12:20:30:40:50:60?value=k8s-rpi-worker-3").
       to_return(:status => 200, :body => load_fixture('etcd_key_set.json'))
 
     get('hostname?mac=12:20:30:40:50:60')

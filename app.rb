@@ -36,7 +36,7 @@ module WhoAmI
 
     def etcd_set(mac_address, value)
       logger.info "Setting etcd key for #{mac_address} to #{value}"
-      response = HTTParty.put("#{etcd_uri}/#{mac_address}", :query => {value: value}).body
+      response = HTTParty.post("#{etcd_uri}/#{mac_address}", :query => {value: value}).body
       logger.info response
       parse_etcd_response(response)
     end
