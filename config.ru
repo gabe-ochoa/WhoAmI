@@ -3,4 +3,6 @@ require ::File.expand_path('../config/environment',  __FILE__)
 
 # require 'app'
 
-run Sinatra::Application
+require './app'
+
+run WhoAmI::App

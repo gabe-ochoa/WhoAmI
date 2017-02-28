@@ -9,7 +9,7 @@ require './config/environment'
 
 RSpec.configure do |config|
   include Rack::Test::Methods
-  def app() Sinatra::Application end
+  def app() WhoAmI::App end
 
   config.mock_with :mocha
   config.color = true

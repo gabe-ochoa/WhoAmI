@@ -3,32 +3,22 @@
 #      http://stackoverflow.com/questions/7243486/why-do-you-need-require-bundler-setup
 ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
 
-require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
+require 'rubygems'
 
 # Require gems we care about
+require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
+Bundler.require(:default, ENV['RACK_ENV'].to_sym)
 
-require 'dotenv'
-Dotenv.load
+if ENV['RACK_ENV'] == 'development'
+  require 'dotenv'
+  Dotenv.load
+end
 
 require 'sinatra/base'
 require 'logger'
 require 'json'
 
-class App < Sinatra::Base
-  use Rack::Logger
-
-  configure :production, :development do
-    enable :logging
-  end
-
-  # for custom error/exception handling
-  set :show_exceptions, false
-end
-
-# require your entry point file here
-require './app'
-
-class WhoAmI
+module WhoAmI
   def self.logger
     if ENV['SYSLOG_LOGGING'] == 'true'
       @logger ||= create_syslog_logger
@@ -61,10 +51,13 @@ class WhoAmI
 
   class Base < Sinatra::Base
     configure do
-      enable :logging
       use Rack::CommonLogger, WhoAmI.logger
     end
 
-    set :show_exceptions, false
+    configure :production, :staging, :development do
+      enable :logging
+    end
   end
 end
+
+require './app'
