@@ -39,11 +39,11 @@
                     },
                     {
                         "name": "K8S_MASTER_IP",
-                        "value": "kube-master.local"
+                        "value": "192.168.7.110"
                     },
                     {
                         "name": "K8S_MASTER_TOKEN",
-                        "value": "replace_this_token"
+                        "value": "393d73.deda97de406a3442"
                     },
                     {
                         "name": "ETCD_HOST",
@@ -86,13 +86,9 @@
                   {
                       "name": "ETCD_ADVERTISE_CLIENT_URLS",
                       "value": "http://0.0.0.0:2379"
-                  },
-                  {
-                      "name": "ETCD_INITIAL_ADVERTISE_PEER_URLS",
-                      "value": "http://0.0.0.0:2380"
                   }
               ],
-              "image": "quay.io/coreos/etcd:latest",
+              "image": "gcr.io/google_containers/etcd-arm:3.0.17",
               "name": "etcd",
               "ports": [
                 {
@@ -105,7 +101,8 @@
                   "name": "server",
                   "protocol": "TCP"
                 }
-              ]
+              ],
+              "imagePullPolicy": "Always"
           }
         ],
       "restartPolicy": "Always"
