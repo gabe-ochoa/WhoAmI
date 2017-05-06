@@ -11,7 +11,7 @@
         "containers": [
             {
                 "name": "who-am-i",
-                "image": "gabeochoa/who-am-i:stable",
+                "image": "gabeochoa/who-am-i:arm",
                 "livenessProbe": {
                   "initialDelaySeconds": 20,
                   "httpGet": {

@@ -1,5 +1,5 @@
-FROM alpine:3.5
-MAINTAINER Gabe Ochoa <gabeochoa@gmail.com>
+FROM easypi/alpine-arm
+MAINTAINER Gabe Ochoa <gabeochoa@gmail.com.com>
 
 # This container runs ruby 2.3.3 as is default in the Alpine 3.5 repositories
 ENV BUILD_PKS build-base ruby-dev
