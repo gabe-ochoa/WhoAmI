@@ -15,6 +15,14 @@ RSpec.describe WhoAmI, type: :controllers do
     expect(last_response.status).to eq(204)
   end
 
+  it "GET /master_info returns a 200 and an hostname and token for the master" do
+    ENV['K8S_MASTER_IP'] = 'k8s_worker_master.local'
+    ENV['K8S_MASTER_TOKEN'] = 'some_k8s_token'
+    get('/master_info')
+    expect(last_response.status).to eq(200)
+    expect(last_response.body).to eq('k8s_worker_master.local,some_k8s_token')
+  end
+
   it 'GET /hostname?mac=10:20:30:40:50:60 returns a 200 and a hostname' do
     stub_request(:get, "http://127.0.0.1:2379/v2/keys/WhoAmI-kubernetes/10:20:30:40:50:60").
       to_return(:status => 200, :body => load_fixture('etcd_get.json'))

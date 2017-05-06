@@ -15,12 +15,26 @@ module WhoAmI
     end
 
     get '/health' do
-      return [204, "I'm alive!"]
+      return 204
+    end
+
+    get '/master_info' do
+      return [200, "#{master_ip},#{master_token}"]
     end
 
     get '/hostname' do
       # Get the hostname for a paritcular MAC address
       return [200, hostname(params['mac'], params['service'] = 'kubernetes')]
+    end
+
+    private
+
+    def master_ip
+      ENV['K8S_MASTER_IP']
+    end
+
+    def master_token
+      ENV['K8S_MASTER_TOKEN']
     end
 
     def hostname(mac_address, service)
