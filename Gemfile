@@ -9,7 +9,7 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'rack'
 gem 'dotenv'
-gem 'json', '~> 2.0'
+gem 'json', '~> 2.3'
 gem 'httparty'
 
 group :test do
